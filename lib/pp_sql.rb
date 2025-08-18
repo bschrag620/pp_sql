@@ -10,6 +10,7 @@ module PpSql
   end
   self.rewrite_to_sql_method = true
   self.add_rails_logger_formatting = true
+  self.disable_during_db_migrate = false
 
   module Formatter
     private
