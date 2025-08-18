@@ -67,6 +67,11 @@ module PpSql
           ActiveRecord::LogSubscriber.prepend LogSubscriberPrettyPrint
         end
       end
+
+      rake_tasks do
+        path = File.expand_path(__dir__)
+        Dir.glob("#{path}/pp_sql/tasks/**/*.rake").each { |f| load f }
+      end
     end
   end
 end
