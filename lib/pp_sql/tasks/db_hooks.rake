@@ -11,4 +11,5 @@ namespace :pp_sql do
   end
 end
 
-Rake::Task['db:migrate'].enhance(['pp_sql:disable_during_db_migrate'])
+db_tasks = Rake::Tasks.tasks.select { |task| task.name.starts_with('db:') }
+db.tasks.each { |task| task.enhance(['pp_sql:disable_during_db_migrate']) }
