@@ -3,8 +3,8 @@
 namespace :pp_sql do
   desc 'Hook that is ran before rails `db:*` tasks that can disable pp_sql'
 
-  task :disable_during_db_migrate do
-    if PpSql.disable_during_db_migrate || ENV['PPSQL_DISABLE']
+  task :disable_during_db_tasks do
+    if PpSql.disable_for_db_tasks || ENV['PPSQL_DISABLE']
       PpSql.add_rails_logger_formatting = false
       PpSql.rewrite_to_sql_method = false
     end
@@ -12,4 +12,4 @@ namespace :pp_sql do
 end
 
 db_tasks = Rake::Tasks.tasks.select { |task| task.name.starts_with('db:') }
-db_tasks.each { |task| task.enhance(['pp_sql:disable_during_db_migrate']) }
+db_tasks.each { |task| task.enhance(['pp_sql:disable_during_db_tasks']) }
