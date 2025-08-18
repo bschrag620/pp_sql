@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :pp_sql do
-  desc 'Hook that is ran before rails db:migrate that will disable pp_sql when disable_during_db_migrate is set to true'
+  desc 'Hook that is ran before rails `db:*` tasks that can disable pp_sql'
 
   task :disable_during_db_migrate do
     if PpSql.disable_during_db_migrate || ENV['PPSQL_DISABLE']
