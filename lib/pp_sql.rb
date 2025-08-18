@@ -6,7 +6,7 @@ module PpSql
   # if you do not want to rewrite AR native method #to_sql
   # you may switch this setting to false in initializer
   class << self
-    attr_accessor :rewrite_to_sql_method, :add_rails_logger_formatting
+    attr_accessor :rewrite_to_sql_method, :add_rails_logger_formatting, :disable_during_db_migrate
   end
   self.rewrite_to_sql_method = true
   self.add_rails_logger_formatting = true
