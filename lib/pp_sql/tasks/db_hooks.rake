@@ -11,5 +11,5 @@ namespace :pp_sql do
   end
 end
 
-db_tasks = Rake::Task.tasks.select { |task| task.name.starts_with('db:') }
+db_tasks = Rake::Task.tasks.select { |task| task.name.start_with('db:') }
 db_tasks.each { |task| task.enhance(['pp_sql:disable_during_db_tasks']) }
