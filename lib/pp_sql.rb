@@ -7,6 +7,12 @@ module PpSql
   # you may switch this setting to false in initializer
   class << self
     attr_accessor :rewrite_to_sql_method, :add_rails_logger_formatting, :disable_for_db_tasks
+
+    def enabled_for?(action)
+      return false if ENV['PPSQL_DISABLED']
+
+      send(action)
+    end
   end
   self.rewrite_to_sql_method = true
   self.add_rails_logger_formatting = true
@@ -29,7 +35,7 @@ module PpSql
 
   module ToSqlBeautify
     def to_sql
-      if ::PpSql.rewrite_to_sql_method
+      if ::PpSql.enabled_for?(:rewrite_to_sql_method)
         extend Formatter
         _sql_formatter.format(defined?(super) ? super.dup : dup)
       else
@@ -38,7 +44,7 @@ module PpSql
     end
 
     def pp_sql
-      if ::PpSql.rewrite_to_sql_method
+      if ::PpSql.enabled_for?(:rewrite_to_sql_method)
         puts to_sql
       else
         extend Formatter
@@ -51,7 +57,7 @@ module PpSql
     include Formatter
 
     def sql(event)
-      return super unless ::PpSql.add_rails_logger_formatting
+      return super unless ::PpSql.enabled_for?(:add_rails_logger_formatting)
 
       e = event.dup
       e.payload[:sql] = _sql_formatter.format(e.payload[:sql].dup)
