@@ -20,6 +20,13 @@ describe PpSql do
     assert_equal str.to_sql.lines.count, 1
   end
 
+  it 'can be disabled with env var' do
+    old_env = ENV.to_hash
+    ENV.update('PPSQL_DISABLED' => '1')
+    assert_equal 1, str.to_sql.lines.count
+    ENV.replace old_env
+  end
+
   it 'formats and prints with pp_sql' do
     out, = capture_io do
       str.pp_sql
