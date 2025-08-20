@@ -10,7 +10,7 @@ module PpSql
   end
   self.rewrite_to_sql_method = true
   self.add_rails_logger_formatting = true
-  self.enable_for_rails_rake_db_tasks = false
+  self.enable_for_rails_rake_db_tasks = ENV.fetch('PPSQL_ENABLE_FOR_RAILS_RAKE_DB_TASKS', false)
 
   module Formatter
     private
