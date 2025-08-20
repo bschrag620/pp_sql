@@ -70,7 +70,7 @@ module PpSql
 
       rake_tasks do
         path = File.expand_path(__dir__)
-        Dir.glob("#{path}/pp_sql/tasks/**/*.rake").each { |f| load f }
+        Dir.glob("#{path}/pp_sql/tasks/**/*.rake").each { |f| load f } unless PpSql.enable_for_rails_db_tasks
       end
     end
   end
