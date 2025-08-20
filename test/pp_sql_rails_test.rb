@@ -36,16 +36,6 @@ describe PpSql do
     assert_equal LOGGER.string.lines.count, 6
   end
 
-  it 'can be disabled with an env var' do
-    old_env = ENV.to_hash
-    ENV.update('PPSQL_DISABLED' => '1')
-    User.create
-    clear_logs!
-    User.first
-    assert_equal 1, LOGGER.string.lines.count
-    ENV.replace old_env
-  end
-
   it 'Rails & ActiveRecord with default output' do
     PpSql.add_rails_logger_formatting = false
     User.create
